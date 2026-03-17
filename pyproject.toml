@@ -1,0 +1,56 @@
+[project]
+name = "ytranscribe"
+version = "0.1.0"
+description = "YouTube video transcription CLI and service (faster-whisper + yt-dlp + ffmpeg)."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { file = "LICENSE" }
+authors = [{ name = "nqd2" }]
+dependencies = [
+  "faster-whisper>=1.0.0",
+  "yt-dlp>=2025.1.1",
+  "ffmpeg-python>=0.2.0",
+  "tqdm>=4.66.0",
+  "pydantic>=2.6.0",
+  "pydantic-settings>=2.2.0",
+  "rich>=13.7.0",
+  "platformdirs>=4.2.0",
+]
+
+[project.optional-dependencies]
+api = [
+  "fastapi>=0.110.0",
+  "uvicorn[standard]>=0.27.0",
+  "python-multipart>=0.0.9",
+]
+queue = [
+  "redis>=5.0.0",
+  "rq>=1.16.0",
+]
+dev = [
+  "ruff>=0.5.0",
+  "pytest>=8.0.0",
+]
+
+[project.scripts]
+yts = "ytranscribe.cli.main:main"
+
+[project.entry-points."ytranscribe.apps"]
+api = "ytranscribe.apps.api_app:create_app"
+api_queue = "ytranscribe.apps.api_queue_app:create_app"
+
+[build-system]
+requires = ["hatchling>=1.22.0"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/ytranscribe"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
+ignore = ["E501"]
+
