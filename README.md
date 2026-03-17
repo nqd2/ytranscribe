@@ -1,6 +1,6 @@
 # ytranscribe
 
-YouTube transcription tool built on `ffmpeg` + `whisper`.
+YouTube transcription tool built on `ffmpeg` + `whisper`. 
 
 - Input: a single YouTube URL or a `.txt` file (one URL per line)
 - Output: a single file or a folder (one transcript per video)
